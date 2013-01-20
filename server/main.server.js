@@ -2,6 +2,25 @@
 
 Meteor.startup(function () {
 
+  // serve channel.html file programmatically
+  var connect;
+  connect = __meteor_bootstrap__.require("connect");
+
+  __meteor_bootstrap__.app.use(connect.query()).use(function(req, res, next) {
+    // Need to create a Fiber since we're using synchronous http
+    // calls and nothing else is wrapping this in a fiber
+    // automatically
+    return Fiber(function() {
+      if (req.url === "/channel.html") {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        return res.end('<script src="//connect.facebook.net/en_US/all.js"></script>');
+      } else {
+        // if not an channel.html request, pass to next middleware.
+        return next();
+      }
+    }).run();
+  });
+
   // publish the Facebook access token for the current logged in user
   Meteor.publish("fbAccessToken", function() {
     return Meteor.users.find(this.userId, {
@@ -20,22 +39,22 @@ Meteor.startup(function () {
     }
     return user;
   });
-
-  // make async call to grab the picture from facebook
-  var getFbPicture = function(accessToken) {
-    var result;
-    result = Meteor.http.get("https://graph.facebook.com/me", {
-      params: {
-        access_token: accessToken,
-        fields: 'picture'
-      }
-    });
-    if (result.error) {
-      throw result.error;
-    }
-
-    // save the picture's url instead of the picture object we are given from facebook
-    return result.data.picture.data.url;
-  };
-
 });
+
+// make async call to grab the picture from facebook
+var getFbPicture = function(accessToken) {
+  var result;
+  result = Meteor.http.get("https://graph.facebook.com/me", {
+    params: {
+      access_token: accessToken,
+      fields: 'picture'
+    }
+  });
+  if (result.error) {
+    throw result.error;
+  }
+
+  // save the picture's url instead of the picture object we are given from facebook
+  return result.data.picture.data.url;
+};
+
