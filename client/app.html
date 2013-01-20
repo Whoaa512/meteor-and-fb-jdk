@@ -7,3 +7,9 @@
   <br />
   <div><h2>Yay we can log in with facebook!</h2></div>
 </body>
+
+<template name='fb_pic'>
+  {{#if currentUser}}
+    <img src="{{pic}}" class='fbPic'>
+  {{/if}}
+</template>

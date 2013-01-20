@@ -3,3 +3,10 @@ body {
   margin-left: 5%;
   margin-top: 2%;
 }
+
+.fbPic {
+  border-right: 1.5px solid;
+  padding-right: 8px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
