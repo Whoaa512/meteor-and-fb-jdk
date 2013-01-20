@@ -14,7 +14,26 @@ Meteor.startup(function () {
       return userProfile.picture;
     }
   };
+});
 
+Template.feed.events({
+  'click .post': function(e) {
+    e.preventDefault();
+    FB.ui({
+      method: 'feed',
+      name: 'Facebook Dialogs',
+      link: 'http://fbrell.com/',
+      picture: 'http://fbrell.com/f8.jpg',
+      caption: 'Reference Documentation',
+      description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+    }, function(response) {
+        if (response && response.post_id) {
+          alert('Post was published.');
+        } else {
+          alert('Post was not published.');
+        }
+    });
+  }
 });
 
 var fbSdkLoader = function() {
