@@ -1,5 +1,7 @@
 // Client side javascript
 
+// create client database subscriptions
+Meteor.subscribe('fbAccessToken');
+
 Meteor.startup(function () {
-  // code to run on server at startup
 });
