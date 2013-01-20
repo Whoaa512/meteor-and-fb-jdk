@@ -9,11 +9,16 @@
 
   <div> {{> fb_pic}} {{loginButtons}}</div>
   <br />
-  <div><h2>Click to post to your feed:</h2> <input type='submit' value='Feed Post!' /></div>
+  <div><h2>Click to post to your feed:</h2> {{> feed}} </div>
 </body>
 
 <template name='fb_pic'>
   {{#if currentUser}}
     <img src="{{pic}}" class='fbPic'>
   {{/if}}
+</template>
+
+
+<template name='feed'>
+  <input class='post' type='submit' value='Feed Post!' />
 </template>
