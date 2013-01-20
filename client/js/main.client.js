@@ -9,6 +9,7 @@ Meteor.startup(function () {
   Template.fb_pic.pic = function() {
     var userProfile;
     userProfile = Meteor.user().profile;
+    // logic to handle logged out state
     if (userProfile) {
       return userProfile.picture;
     }

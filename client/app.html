@@ -3,9 +3,13 @@
 </head>
 
 <body>
+  {{#constant}}
+    <div id="fb-root"></div>
+  {{/constant}}
+
   <div> {{> fb_pic}} {{loginButtons}}</div>
   <br />
-  <div><h2>Now we can see our FB picture!</h2></div>
+  <div><h2>Click to post to your feed:</h2> <input type='submit' value='Feed Post!' /></div>
 </body>
 
 <template name='fb_pic'>
